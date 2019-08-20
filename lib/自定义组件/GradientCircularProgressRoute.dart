@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'GradientCircularProgressIndicator.dart';
 
+void main() {
+  runApp(GradientCircularProgressRoute());
+}
+
 class GradientCircularProgressRoute extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -15,7 +19,7 @@ class _GradientCircularProgressRoute
   @override
   void initState() {
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 3));
+        AnimationController(vsync: this, duration: Duration(seconds: 10));
     bool isForward = true;
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.forward) {
@@ -31,7 +35,14 @@ class _GradientCircularProgressRoute
         isForward = false;
       }
     });
+    _controller.forward();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -62,6 +73,13 @@ class _GradientCircularProgressRoute
                 radius: 50.0,
                 colors: [Colors.blue, Colors.blue],
                 strokeWidth: 3.0,
+                value: _controller.value,
+              ),
+              GradientCircularProgressIndicator(
+                radius: 50.0,
+                colors: [Colors.red, Colors.orange,Colors.green],
+                strokeWidth: 3.0,
+                value: _controller.value,
               )
             ],
           )

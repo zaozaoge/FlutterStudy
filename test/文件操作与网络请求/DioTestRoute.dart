@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flustars/flustars.dart';
 void main() {
   runApp(DioTestRoute());
 }
@@ -36,7 +36,8 @@ class _DioTestRouteState extends State<DioTestRoute> {
                     return Text(snapshot.error.toString());
                   }
                   //请求成功，通过项目信息构建用于显示项目名称的ListView
-                  print(response.data.toString());
+                  LogUtil.init(isDebug: true,tag: "Dio");
+                  LogUtil.v(response.data.toString());
                   return ListView(
                     children: response.data.map<Widget>((e) =>
                         ListTile(title: Text(e["full_name"]))

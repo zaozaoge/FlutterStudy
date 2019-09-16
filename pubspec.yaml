@@ -29,6 +29,7 @@ dependencies:
   dio: ^2.1.16
   #常用工具类插件（LogUtil,SpUtil,ScreenUtil,DirectoryUtil）
   flustars: ^0.2.6+1
+  shared_preferences: ^0.4.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

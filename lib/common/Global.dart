@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/models/CacheObject.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/profile.dart';
+
 const _themes = <MaterialColor>[
   Colors.blue,
   Colors.cyan,
@@ -9,11 +11,25 @@ const _themes = <MaterialColor>[
   Colors.red
 ];
 
-class Global{
+class Global {
   static SharedPreferences _prefs;
   static Profile profile = Profile();
+
   //网络缓存对象
- // static NetCache netCache = NetCache();
+  static NetCache netCache = NetCache();
+
   //可选的主题列表
   static List<MaterialColor> get themes => _themes;
+
+  //是否为release版
+  static bool get isRelease => bool.fromEnvironment("dart.vm.product");
+
+  //初始化全局信息，会在app启动时执行
+  static Future init() async {
+    _prefs = await SharedPreferences.getInstance();
+    var _profile = _prefs.getString("profile");
+    if (_profile != null) {
+
+    }
+  }
 }

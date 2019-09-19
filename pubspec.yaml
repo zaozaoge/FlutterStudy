@@ -24,12 +24,15 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   #文件操作插件
-  path_provider: ^0.4.1
+  path_provider: ^0.5.0+1
   #网络请求插件
   dio: ^2.1.16
   #常用工具类插件（LogUtil,SpUtil,ScreenUtil,DirectoryUtil）
   flustars: ^0.2.6+1
   shared_preferences: ^0.4.2
+  provider: ^3.1.0
+  flukit: ^1.0.2
+  cached_network_image: ^1.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -53,6 +56,7 @@ flutter:
   assets:
     - images/time_0.png
     - images/test.png
+    - images/ic_launcher.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

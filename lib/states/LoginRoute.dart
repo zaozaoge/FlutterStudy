@@ -1,0 +1,15 @@
+import 'package:flutter/material.dart';
+
+class LoginRoute extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _LoginRouteState();
+  }
+}
+
+class _LoginRouteState extends State<LoginRoute> {
+  @override
+  Widget build(BuildContext context) {
+    return null;
+  }
+}

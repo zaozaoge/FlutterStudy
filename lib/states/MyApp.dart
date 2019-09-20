@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/ProfileChangeNotifier.dart';
 import 'package:flutter_app/i10n/GmLocalizations.dart';
-import 'package:flutter_app/routes/HomeRoute.dart';
+import 'package:flutter_app/i10n/GmLocalizationsDelegate.dart';
+import 'package:flutter_app/states/HomeRoute.dart';
 import 'package:flutter_app/states/LanguageRoute.dart';
 import 'package:flutter_app/states/LoginRoute.dart';
 import 'package:flutter_app/states/ThemeChangeRoute.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
@@ -25,6 +27,11 @@ class MyApp extends StatelessWidget {
           },
           home: HomeRoute(),
           locale: localModel.getLocale(),
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GmLocalizationsDelegate()
+          ],
           //只支持美式英语和中文简体
           supportedLocales: [
             const Locale('en', 'US'), //美式英语

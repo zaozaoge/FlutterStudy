@@ -4,6 +4,7 @@ import 'package:flutter_app/common/Git.dart';
 import 'package:flutter_app/common/ProfileChangeNotifier.dart';
 import 'package:flutter_app/i10n/GmLocalizations.dart';
 import 'package:flutter_app/models/index.dart';
+import 'package:flutter_app/widgets/RepoItem.dart';
 import 'package:provider/provider.dart';
 
 class HomeRoute extends StatefulWidget {
@@ -30,7 +31,9 @@ class _HomeRouteState extends State<HomeRoute> {
       //用户未登陆，显示登陆按钮
       return Center(
         child: RaisedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed("login");
+          },
           child: Text(GmLocalizations.of(context).login),
         ),
       );
@@ -45,7 +48,9 @@ class _HomeRouteState extends State<HomeRoute> {
           //如果接口返回的数据等于page_size,则认为还有数据，反之则认为最后一项
           return data.length == 20;
         },
-        itemBuilder: (List list, int index, BuildContext buildContext) {},
+        itemBuilder: (List list, int index, BuildContext buildContext) {
+          return RepoItem(list[index]);
+        },
       );
     }
   }

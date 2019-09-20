@@ -29,6 +29,8 @@ class NetCache extends Interceptor {
     if (!Global.profile.cache.enable) {
       return options;
     }
+    print("请求完成");
+    print(options.data.toString());
     bool refresh = options.extra["refresh"] == true;
     //如果是下拉刷新，先删除相关缓存
     if (refresh) {

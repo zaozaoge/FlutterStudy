@@ -25,7 +25,7 @@ class Git {
     //设置用户token,为空代表未登陆
     dio.options.headers[HttpHeaders.authorizationHeader] = Global.profile.token;
     //在调试模式下需要抓包测试，所以我们使用代理，并禁用Https证书校验
-    if (!Global.isRelease) {
+/*    if (!Global.isRelease) {
       (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
           (client) {
         client.findProxy = (uri) {
@@ -35,16 +35,22 @@ class Git {
         client.badCertificateCallback =
             (X509Certificate cert, String host, int port) => true;
       };
-    }
+    }*/
   }
 
   //登录接口，登录成功后返回用户信息
   Future<User> login(String login, String pwd) async {
-    String basic = 'Basic' + base64.encode(utf8.encode("$login:$pwd"));
-    var r = await dio.get("/user/$login",
+    String basic = 'Basic ' + base64Encode(utf8.encode("$login:$pwd"));
+    debugPrint(basic);
+    var r = await dio.request("/user",
         options: options.merge(
-            headers: {HttpHeaders.authorizationHeader: basic},
-            extra: {"noCache": true}));
+          headers: {HttpHeaders.authorizationHeader: basic},
+          /*extra: {"noCache": true}*/
+        ));
+    debugPrint("请求Uri:${r.request.uri.toString()}");
+    debugPrint("请求Header:${r.request.headers}");
+    debugPrint("请求结果:${r.data}");
+
     //登录成功后更新公共头，此后所有请求都会带上用户身份信息
     dio.options.headers[HttpHeaders.authorizationHeader] = basic;
     //清空所有缓存
@@ -62,7 +68,12 @@ class Git {
       options.extra.addAll({"refresh": true, "list": true});
     }
     var r = await dio.get<List>("user/repos",
-        queryParameters: queryParams, options: options);
+        queryParameters: queryParams,
+        options: options.merge(
+            headers: {HttpHeaders.authorizationHeader: Global.profile.token}));
+    debugPrint("请求Uri:${r.request.uri.toString()}");
+    debugPrint("请求Header:${r.request.headers}");
+    debugPrint("请求结果:${r.data}");
     return r.data.map((value) => Repo.fromJson(value)).toList();
   }
 }

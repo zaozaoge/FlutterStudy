@@ -58,11 +58,27 @@ class _RepoItemState extends State<RepoItem> {
                               : FontStyle.normal),
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),child: widget.repo.description ==null ? Text(GmLocalizations.of(
-                        context).noDescription),)
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
+                      child: widget.repo.description == null
+                          ? Text(
+                              GmLocalizations.of(context).noDescription,
+                              style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.grey[700]),
+                            )
+                          : Text(
+                              widget.repo.description,
+                              maxLines: 3,
+                              style: TextStyle(
+                                  height: 1.15,
+                                  color: Colors.blueGrey[700],
+                                  fontSize: 13),
+                            ),
+                    )
                   ],
                 ),
-              )
+              ),
+              _buildBottom()
             ],
           ),
         ),
@@ -91,5 +107,34 @@ class _RepoItemState extends State<RepoItem> {
         errorWidget: (context, url, error) => placeHolder,
       ),
     );
+  }
+
+  Widget _buildBottom() {
+    const paddingWidth = 10;
+    return IconTheme(
+        data: IconThemeData(color: Colors.grey, size: 15),
+        child: DefaultTextStyle(
+          style: TextStyle(color: Colors.grey, fontSize: 12.0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Builder(builder: (context) {
+              var children = <Widget>[
+                Icon(Icons.star),
+                Text(" " +
+                    widget.repo.stargazers_count
+                        .toString()
+                        .padLeft(paddingWidth)),
+                Icon(Icons.info_outline),
+                Text(" " +
+                    widget.repo.open_issues_count
+                        .toString()
+                        .padRight(paddingWidth))
+              ];
+              return Row(
+                children: children,
+              );
+            }),
+          ),
+        ));
   }
 }
